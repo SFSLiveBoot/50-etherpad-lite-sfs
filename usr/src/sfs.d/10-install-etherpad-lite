@@ -1,0 +1,23 @@
+#!/bin/sh
+
+set -e
+. "$(dirname "$0")/.common.sh"
+
+which npm >/dev/null || { echo "Cannot locate npm, aborting" ; exit 1 ; }
+
+set -x
+
+git clone --depth=1 -b release/$ep_ver "$ep_git" "$ep_d"
+
+(cd "$ep_d" ; bin/installDeps.sh )
+
+test -d "$DESTDIR/$var_d" || install -d -o www-data "$DESTDIR/$var_d"
+
+mv "$ep_d/var" "$ep_d/.var.orig"
+ln -s "$var_d" "$ep_d/var"
+ln -s "$var_d/APIKEY.txt" "$ep_d/"
+ln -s "$var_d/SESSIONKEY.txt" "$ep_d/"
+ln -s "$var_d/.ep_initialized" "$ep_d/src/"
+
+test -z "$ep_modules" ||
+    (cd "$ep_d"; npm install $ep_modules)

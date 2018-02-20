@@ -1,0 +1,6 @@
+# file: etc/postgresql/db-init.d/etherpad.sql
+# owner: www-data
+# group: www-data
+user::r--
+group::r--
+other::r--

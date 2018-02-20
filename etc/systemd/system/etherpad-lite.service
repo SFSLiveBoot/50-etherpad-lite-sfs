@@ -1,0 +1,15 @@
+[Unit]
+Wants=postgresql.service
+After=postgresql.service
+
+[Service]
+Environment=PATH=/opt/bin:/bin:/usr/bin
+ExecStartPre=/usr/bin/find /srv/etherpad-lite/node_modules/ -mindepth 1 -maxdepth 1 -name "ep_*" -type d -exec sh -e -c 'for d; do test -e "$d/.ep_initialized" -o -L "$d/.ep_initialized" || ln -sv "/var/lib/etherpad-lite/.ep_initialized-$${d##*/ep_}" "$d/.ep_initialized";done' a {} +
+ExecStart=/opt/bin/node node_modules/ep_etherpad-lite/node/server.js
+WorkingDirectory=/srv/etherpad-lite
+PermissionsStartOnly=true
+User=www-data
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
