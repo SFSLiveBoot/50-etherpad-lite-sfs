@@ -27,3 +27,9 @@ test ! -d "$ep_d/node_modules/ep_fileupload/upload" || {
   chown www-data "$DESTDIR/$var_d/upload"
   ln -s "$var_d/upload" "$ep_d/node_modules/ep_fileupload"
 }
+
+for patch in "$(dirname "$0")/.patches"/*;do
+  test -r "$patch" || continue
+  echo -n "Applying $patch.. "
+  if (cd "$DESTDIR"; patch -p1 <"$patch");then echo "ok."; else echo "failed.";fi
+done

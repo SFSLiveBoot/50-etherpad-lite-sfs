@@ -1,0 +1,7 @@
+--- a/srv/etherpad-lite/node_modules/ep_copypad/templates/editbarButtons.ejs	2012-04-24 12:54:27.000000000 +0000
++++ b/srv/etherpad-lite/node_modules/ep_copypad/templates/editbarButtons.ejs	2018-02-22 10:25:58.437199100 +0000
+@@ -1,3 +1,3 @@
+ <li id="copyPad" onClick="copyPad();return false;">
+-  <a class="buttonicon buttonicon-copy-pad" title="Copy pad"></a>
++  <a title="Copy pad"><span class="buttonicon buttonicon-copy-pad"></span></a>
+ </li>
