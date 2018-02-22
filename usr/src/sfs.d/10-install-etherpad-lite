@@ -21,3 +21,9 @@ ln -s "$var_d/.ep_initialized" "$ep_d/src/"
 
 test -z "$ep_modules" ||
     (cd "$ep_d"; npm install $ep_modules)
+
+test ! -d "$ep_d/node_modules/ep_fileupload/upload" || {
+  mv "$ep_d/node_modules/ep_fileupload/upload" "$DESTDIR/$var_d"
+  chown www-data "$DESTDIR/$var_d/upload"
+  ln -s "$var_d/upload" "$ep_d/node_modules/ep_fileupload"
+}
